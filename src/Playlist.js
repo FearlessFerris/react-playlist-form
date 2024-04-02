@@ -2,7 +2,7 @@
 
 // Import Dependencies 
 import React, { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 // Import Components 
 import Song from './Song';
@@ -13,12 +13,18 @@ function Playlist() {
         name: '',
         album: '',
         artist: '',
-        year: ''
+        year: '',
+        id: ''
     };
     
+    const fieldNames = Object.keys( INITIAL_STATE );
+
     // Initialize Song State 
     const [ songData, setSongData ] = useState( INITIAL_STATE );
     const [ songs, setSongs ] = useState([]);
+
+
+    const [ errorMessages, setErrorMessages ] = useState([]);
 
     // Handle Song Data 
     const handleSongData = ( e ) => {
@@ -33,12 +39,19 @@ function Playlist() {
     // Handle Form Submit 
     const handleFormSubmit = ( e ) => {
         e.preventDefault(); // Don't forget to prevent the default form submit behavior 
+        
+        // const isEmpty = fieldNames.some( fieldName => !songData[ fieldName ]);
+        // if( isEmpty ){
+        //     setErrorMessages( 'Please fill out all fields!' );
+        //     return;
+        // }
+
         const newSong = { 
             name: songData.name,
             album: songData.album,
             artist: songData.artist,
             year: songData.year,
-            id: songData.id || uuidv4()
+            id: songData.id || uuid()
         }
         setSongs( prevSongs => [ ...prevSongs, newSong ]); // Adds new song to array 
         setSongData( INITIAL_STATE ); // After form has been submited this will reset the form to initial state values of '' 
@@ -88,13 +101,13 @@ function Playlist() {
                     /> 
                 </div>
                 <div> 
-                    <button> Create </button>
+                    <button className = 'form-submit-button'> Create </button>
                 </div>
             </form>
             <div> 
                 { /* Map over the songs array and display a song component for each song created */ }
                 { songs.map(( song, index ) => ( 
-                    <Song key = { song.id } name = { song.name } album = { song.album } artist = { song.artist } year = { song.year } /> 
+                    <Song id = { song.id } name = { song.name } album = { song.album } artist = { song.artist } year = { song.year } /> 
                 ))}
             </div>
         </div>

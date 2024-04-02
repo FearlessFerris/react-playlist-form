@@ -2,11 +2,9 @@
 
 // Import Dependencies 
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 function Song({ name, album, artist, year, id }) {
-
-    const songId = id || uuidv4();
 
     return(
         <div className = 'song'> 
@@ -15,7 +13,7 @@ function Song({ name, album, artist, year, id }) {
                 <li> { album } </li>
                 <li> { artist } </li>
                 <li> { year } </li>
-                <li> { songId } </li>
+                <li> { id } </li>
             </ul>
         </div>
     )
