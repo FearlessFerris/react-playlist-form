@@ -1,12 +1,11 @@
 // Implementation of Playlist Component 
 
 // Import Dependencies 
-import React, { useState } from 'react';
-import uuid from 'uuid/v4';
+import React, { useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 // Import Components 
 import Song from './Song';
-
 
 function Playlist() {
     // Initial State Variable 
@@ -38,7 +37,8 @@ function Playlist() {
             name: songData.name,
             album: songData.album,
             artist: songData.artist,
-            year: songData.year
+            year: songData.year,
+            id: songData.id || uuidv4()
         }
         setSongs( prevSongs => [ ...prevSongs, newSong ]); // Adds new song to array 
         setSongData( INITIAL_STATE ); // After form has been submited this will reset the form to initial state values of '' 
@@ -48,35 +48,33 @@ function Playlist() {
         <div> 
             <form className = 'song-form' onSubmit = { handleFormSubmit }> 
                 <div className = 'label-input-group'>
-                <label> Song Name </label>
-                <input 
-                    name = 'name'
-                    id = 'id'
-                    placeholder = 'Song Name'
-                    value = { songData.name }
-                    onChange = { handleSongData }
+                    <label> Song Name </label>
+                    <input 
+                        name = 'name'
+                        id = 'id'
+                        placeholder = 'Song Name'
+                        value = { songData.name }
+                        onChange = { handleSongData }
+                        />
+                    </div>
+                <div className = 'label-input-group'>
+                    <label> Album </label>
+                    <input 
+                        name = 'album'
+                        id = 'album'
+                        placeholder = 'Album'
+                        value = { songData.album }
+                        onChange = { handleSongData }
                     />
                 </div>
                 <div className = 'label-input-group'>
-
-                <label> Album </label>
-                <input 
-                    name = 'album'
-                    id = 'album'
-                    placeholder = 'Album'
-                    value = { songData.album }
-                    onChange = { handleSongData }
-                    />
-                </div>
-                <div className = 'label-input-group'>
-
-                <label> Artist </label>
-                <input 
-                    name = 'artist'
-                    id = 'artist'
-                    placeholder = 'Artist'
-                    value = { songData.artist }
-                    onChange = { handleSongData }
+                    <label> Artist </label>
+                    <input 
+                        name = 'artist'
+                        id = 'artist'
+                        placeholder = 'Artist'
+                        value = { songData.artist }
+                        onChange = { handleSongData }
                     /> 
                 </div>
                 <div className = 'label-input-group'>
@@ -93,20 +91,14 @@ function Playlist() {
                     <button> Create </button>
                 </div>
             </form>
-
             <div> 
+                { /* Map over the songs array and display a song component for each song created */ }
                 { songs.map(( song, index ) => ( 
-                    <div key = { index }>
-                        <h3> { song.name } </h3>
-                        <p> Album: { song.album } </p>
-                        <p> Artist: { song.artist } </p>
-                        <p> Year: { song.year } </p>
-                    </div>
+                    <Song key = { song.id } name = { song.name } album = { song.album } artist = { song.artist } year = { song.year } /> 
                 ))}
             </div>
         </div>
     )
-
 }
 
 export default Playlist;

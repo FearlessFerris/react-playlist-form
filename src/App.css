@@ -49,6 +49,7 @@ body {
 .song-form {
   display: flex;
   flex-direction: column;
+  margin: 15px;
 }
 
 .label-input-group {
@@ -67,4 +68,25 @@ input {
   flex: 1; /* Allow inputs to grow and take remaining space */
   padding: 5px; /* Add padding to inputs for better appearance */
   box-sizing: border-box; /* Include padding and border in input's total width */
+}
+
+.song {
+  background-color: #282c34;
+  border-radius: 10px;
+  border: solid white 3px;
+  color: white;
+  margin: 15px;
+  text-align: center; /* Center align the content */
+  width: 100%;
+}
+
+.song ul {
+  list-style-type: none;
+  margin: 0; 
+  padding: 0; 
+}
+
+.song ul li {
+  display: block; /* Display list items horizontally */
+  margin: 10px; /* Adjust margin as needed */
 }
